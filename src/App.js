@@ -6,11 +6,13 @@ import Users from "./component/user/Users";
 import Search from "./component/user/Search";
 import Alert from "./component/layout/Alert";
 import About from "./component/pages/About";
+import User from "./component/user/User";
 import axios from "axios";
 
 class App extends Component {
 	state = {
 		users: [],
+		user: {},
 		loading: false,
 		alert: null
 	};
@@ -48,6 +50,21 @@ class App extends Component {
 		});
 	};
 
+	getUser = username => {
+		this.setState({ loading: true });
+
+		axios
+			.get(
+				`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secrect=${process.env.REACT_APP_GITHUB_CLIENT_SECRECT}`
+			)
+			.then(res => {
+				this.setState({
+					user: res.data,
+					loading: false
+				});
+			});
+	};
+
 	setAlert = (msg, type) => {
 		this.setState({ alert: { msg, type } });
 
@@ -57,7 +74,7 @@ class App extends Component {
 	};
 
 	render() {
-		const { users, loading, alert } = this.state;
+		const { users, user, loading, alert } = this.state;
 		return (
 			<Router>
 				<div className="App">
@@ -89,6 +106,18 @@ class App extends Component {
 								exact
 								path="/about"
 								component={About}
+							></Route>
+							<Route
+								exact
+								path="/user/:login"
+								render={props => (
+									<User
+										{...props}
+										user={user}
+										getUser={this.getUser}
+										loading={loading}
+									></User>
+								)}
 							></Route>
 						</Switch>
 					</div>
