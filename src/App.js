@@ -90,7 +90,7 @@ class App extends Component {
 	render() {
 		const { users, user, repos, loading, alert } = this.state;
 		return (
-			<Router>
+			<Router basename={process.env.PUBLIC_URL}>
 				<div className="App">
 					<Navbar></Navbar>
 					<div className="container">
