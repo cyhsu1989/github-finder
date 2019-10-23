@@ -1,11 +1,23 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "../layout/Spinner";
+import Repos from "../repos/Repos";
+import PropTypes from "prop-types";
 
 class User extends Component {
 	componentDidMount() {
 		this.props.getUser(this.props.match.params.login);
+		this.props.getRepos(this.props.match.params.login);
 	}
+
+	static propTypes = {
+		loading: PropTypes.bool,
+		user: PropTypes.object.isRequired,
+		repos: PropTypes.array.isRequired,
+		getUser: PropTypes.func.isRequired,
+		getRepos: PropTypes.func.isRequired
+	};
+
 	render() {
 		const {
 			name,
@@ -22,18 +34,18 @@ class User extends Component {
 			public_gists,
 			hireable
 		} = this.props.user;
-		const { loading } = this.props;
+		const { loading, repos } = this.props;
 
 		if (loading) return <Spinner></Spinner>;
 
 		return (
 			<Fragment>
 				<Link to="/" className="btn btn-light">
-					Back To Search
+					<span>&larr;</span> Back To Search
 				</Link>
 				Hireable:{" "}
 				{hireable ? (
-					<i className="fa fa-check text-sucess"></i>
+					<i className="fa fa-check text-success"></i>
 				) : (
 					<i className="fa fa-times-circle text-danger"></i>
 				)}
@@ -55,7 +67,7 @@ class User extends Component {
 								<p>{bio}</p>
 							</Fragment>
 						)}
-						<a href={html_url} className="btn btn-dark m-1">
+						<a href={html_url} className="btn btn-dark my-1">
 							Visit GitHub Profile
 						</a>
 						<ul>
@@ -97,6 +109,7 @@ class User extends Component {
 						Public Gists: {public_gists}
 					</div>
 				</div>
+				<Repos repos={repos}></Repos>
 			</Fragment>
 		);
 	}

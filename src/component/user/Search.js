@@ -39,7 +39,12 @@ class Search extends Component {
 						value={this.state.text}
 						onChange={this.onChange}
 					/>
-					<input type="submit" className="btn btn-dark btn-block" />
+					<button
+						type="submit"
+						className="btn btn-dark btn-block my-1"
+					>
+						Search
+					</button>
 				</form>
 
 				{this.props.showClear && (
