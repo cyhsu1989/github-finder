@@ -8,7 +8,7 @@
 
 ## 架設環境的使用方法
 
-使用 create-react-app
+使用 create-react-app 建立專案。
 
 ## 使用技術
 
