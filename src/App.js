@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./component/layout/Navbar";
@@ -12,40 +12,11 @@ import axios from "axios";
 import GithubState from "./context/github/GithubState";
 
 const App = () => {
-	const [users, setUsers] = useState([]);
-	const [user, setUser] = useState({});
 	const [repos, setRepos] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [alert, setAlert] = useState(null);
 
-	useEffect(() => {
-		setLoading(true);
-		axios
-			.get(
-				`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secrect=${process.env.REACT_APP_GITHUB_CLIENT_SECRECT}`
-			)
-			.then(res => {
-				setUsers(res.data);
-				setLoading(false);
-			});
-	}, []);
-
-	const clearUsers = () => {
-		setUsers([]);
-		setLoading(false);
-	};
-
-	const getUser = username => {
-		setLoading(true);
-		axios
-			.get(
-				`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secrect=${process.env.REACT_APP_GITHUB_CLIENT_SECRECT}`
-			)
-			.then(res => {
-				setUser(res.data);
-				setLoading(false);
-			});
-	};
+	// TODO: 初始化時，就先 search users
 
 	const getRepos = username => {
 		setLoading(true);
@@ -80,17 +51,8 @@ const App = () => {
 								path="/"
 								render={props => (
 									<Fragment>
-										<Search
-											clearUsers={clearUsers}
-											setAlert={showAlert}
-											showClear={
-												users.length > 0 ? true : false
-											}
-										></Search>
-										<Users
-											users={users}
-											loading={loading}
-										></Users>
+										<Search setAlert={showAlert}></Search>
+										<Users></Users>
 									</Fragment>
 								)}
 							></Route>
@@ -105,11 +67,8 @@ const App = () => {
 								render={props => (
 									<User
 										{...props}
-										user={user}
 										repos={repos}
 										getRepos={getRepos}
-										getUser={getUser}
-										loading={loading}
 									></User>
 								)}
 							></Route>
