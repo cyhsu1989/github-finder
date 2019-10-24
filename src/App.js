@@ -30,19 +30,6 @@ const App = () => {
 			});
 	}, []);
 
-	const searchUsers = text => {
-		setLoading(true);
-		axios
-			.get(
-				`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secrect=${process.env.REACT_APP_GITHUB_CLIENT_SECRECT}`
-			)
-			.then(res => {
-				setUsers(res.data.items);
-				setLoading(false);
-				setAlert(null);
-			});
-	};
-
 	const clearUsers = () => {
 		setUsers([]);
 		setLoading(false);
@@ -94,7 +81,6 @@ const App = () => {
 								render={props => (
 									<Fragment>
 										<Search
-											searchUsers={searchUsers}
 											clearUsers={clearUsers}
 											setAlert={showAlert}
 											showClear={
