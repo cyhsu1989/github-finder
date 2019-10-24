@@ -28,7 +28,7 @@ const GithubState = props => {
 		axios
 			.get(
 				`https://api.github.com/search/users?${
-					text ? "q=" + text : ""
+					text ? `q=${encodeURIComponent(text)}` : ""
 				}&client_id=${
 					process.env.REACT_APP_GITHUB_CLIENT_ID
 				}&client_secrect=${process.env.REACT_APP_GITHUB_CLIENT_SECRECT}`
