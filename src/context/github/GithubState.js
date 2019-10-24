@@ -10,6 +10,9 @@ import {
 	SET_LOADING
 } from "../../types";
 
+let githubClientID = process.env.REACT_APP_GITHUB_CLIENT_ID;
+let githubClientSecrect = process.env.REACT_APP_GITHUB_CLIENT_SECRECT;
+
 const GithubState = props => {
 	const initialState = {
 		users: [],
@@ -27,9 +30,7 @@ const GithubState = props => {
 			.get(
 				`https://api.github.com/search/users?${
 					text ? `q=${encodeURIComponent(text)}` : ""
-				}&client_id=${
-					process.env.REACT_APP_GITHUB_CLIENT_ID
-				}&client_secrect=${process.env.REACT_APP_GITHUB_CLIENT_SECRECT}`
+				}&client_id=${githubClientID}&client_secrect=${githubClientSecrect}`
 			)
 			.then(res => {
 				// 派送任務到 Reducer，任務是：SEARCH_USERS，並帶上從 API 取得的資料：payload
@@ -45,7 +46,7 @@ const GithubState = props => {
 		setLoading();
 		axios
 			.get(
-				`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secrect=${process.env.REACT_APP_GITHUB_CLIENT_SECRECT}`
+				`https://api.github.com/users/${username}?client_id=${githubClientID}&client_secrect=${githubClientSecrect}`
 			)
 			.then(res => {
 				dispatch({
@@ -60,7 +61,7 @@ const GithubState = props => {
 		setLoading();
 		axios
 			.get(
-				`https://api.github.com/users/${username}/repos?per_page=5&sort=created&direction=desc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secrect=${process.env.REACT_APP_GITHUB_CLIENT_SECRECT}`
+				`https://api.github.com/users/${username}/repos?per_page=5&sort=created&direction=desc&client_id=${githubClientID}&client_secrect=${githubClientSecrect}`
 			)
 			.then(res => {
 				dispatch({
