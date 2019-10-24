@@ -7,7 +7,6 @@ const AlertState = props => {
 	const initialState = null;
 	// useReducer(處理函式, 初始狀態)，是 useState 的替代方案
 	// 會回傳目前的狀態 (state)，以及一個派送函式 (dispatch)
-	console.log(useReducer(AlertReducer, initialState));
 	const [state, dispatch] = useReducer(AlertReducer, initialState);
 
 	const setAlert = (msg, type) => {
