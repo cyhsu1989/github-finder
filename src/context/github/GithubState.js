@@ -28,15 +28,18 @@ const GithubState = props => {
 		setLoading();
 		axios
 			.get(
-				`https://api.github.com/search/users?${
-					text ? `q=${encodeURIComponent(text)}` : ""
-				}&client_id=${githubClientID}&client_secrect=${githubClientSecrect}`
+				`https://api.github.com/${
+					text
+						? `search/users?q=${encodeURIComponent(text)}&`
+						: "users?"
+				}client_id=${githubClientID}&client_secrect=${githubClientSecrect}`
 			)
 			.then(res => {
+				const data = text ? res.data.items : res.data;
 				// 派送任務到 Reducer，任務是：SEARCH_USERS，並帶上從 API 取得的資料：payload
 				dispatch({
 					type: SEARCH_USERS,
-					payload: res.data.items
+					payload: data
 				});
 			});
 	};

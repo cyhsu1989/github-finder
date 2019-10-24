@@ -11,8 +11,6 @@ import GithubState from "./context/github/GithubState";
 import AlertState from "./context/alert/AlertState";
 
 const App = () => {
-	// TODO: 初始化時，就先 search users
-
 	return (
 		<GithubState>
 			<AlertState>
