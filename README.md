@@ -17,4 +17,4 @@
 
 -   React.js
 -   react-router-dom
--   React Hooks & ContextAPI ( `working in progress` )
+-   React Hooks & ContextAPI
