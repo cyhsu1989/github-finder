@@ -7,9 +7,7 @@ import {
 	GET_USER,
 	CLEAR_USERS,
 	GET_REPOS,
-	SET_LOADING,
-	SET_ALERT,
-	REMOVE_ALERT
+	SET_LOADING
 } from "../../types";
 
 const GithubState = props => {
