@@ -3,32 +3,17 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./component/layout/Navbar";
 import Users from "./component/user/Users";
+import User from "./component/user/User";
 import Search from "./component/user/Search";
 import Alert from "./component/layout/Alert";
 import About from "./component/pages/About";
-import User from "./component/user/User";
-import axios from "axios";
 
 import GithubState from "./context/github/GithubState";
 
 const App = () => {
-	const [repos, setRepos] = useState([]);
-	const [loading, setLoading] = useState(false);
 	const [alert, setAlert] = useState(null);
 
 	// TODO: 初始化時，就先 search users
-
-	const getRepos = username => {
-		setLoading(true);
-		axios
-			.get(
-				`https://api.github.com/users/${username}/repos?per_page=5&sort=created&direction=desc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secrect=${process.env.REACT_APP_GITHUB_CLIENT_SECRECT}`
-			)
-			.then(res => {
-				setRepos(res.data);
-				setLoading(false);
-			});
-	};
 
 	const showAlert = (msg, type) => {
 		setAlert({ msg, type });
@@ -64,13 +49,7 @@ const App = () => {
 							<Route
 								exact
 								path="/user/:login"
-								render={props => (
-									<User
-										{...props}
-										repos={repos}
-										getRepos={getRepos}
-									></User>
-								)}
+								component={User}
 							></Route>
 						</Switch>
 					</div>
