@@ -31,7 +31,7 @@ const App = () => {
 									path="/user/:login"
 									component={User}
 								></Route>
-								<Route component={NotFound}></Route>
+								<Route path="*" component={NotFound}></Route>
 							</Switch>
 						</div>
 					</div>
