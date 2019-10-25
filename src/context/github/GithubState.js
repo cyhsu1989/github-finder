@@ -1,6 +1,7 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useContext } from "react";
 import axios from "axios";
 import GithubContext from "./githubContext";
+import AlertContext from "../alert/alertContext";
 import GithubReducer from "./githubReducer";
 import {
 	SEARCH_USERS,
@@ -22,6 +23,7 @@ const GithubState = props => {
 	};
 
 	const [state, dispatch] = useReducer(GithubReducer, initialState);
+	const alertContext = useContext(AlertContext);
 
 	// Search Users
 	const searchUsers = text => {
@@ -41,6 +43,9 @@ const GithubState = props => {
 					type: SEARCH_USERS,
 					payload: data
 				});
+				if (data.length === 0) {
+					alertContext.setAlert("No data found...", "light");
+				}
 			});
 	};
 

@@ -12,8 +12,8 @@ import AlertState from "./context/alert/AlertState";
 
 const App = () => {
 	return (
-		<GithubState>
-			<AlertState>
+		<AlertState>
+			<GithubState>
 				<Router basename={process.env.PUBLIC_URL}>
 					<div className="App">
 						<Navbar></Navbar>
@@ -36,8 +36,8 @@ const App = () => {
 						</div>
 					</div>
 				</Router>
-			</AlertState>
-		</GithubState>
+			</GithubState>
+		</AlertState>
 	);
 };
 
